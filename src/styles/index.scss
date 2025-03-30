@@ -1,32 +1,35 @@
 @use "variables" as *;
 @use "mixins" as *;
 
-@use "Buttons/primary" as *;  
-@use "Buttons/secondary" as *;
+@use "buttons" as *;
 
-.button {
-  @include button-styles(#007bff);
-}
+
 
 :root {
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("/public/press-background.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 body {
   margin: 0 auto;
   display: flex;
   justify-content: center;
-  background-image: url("/public/press-background.svg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 100vh;
   font-family: monospace;
+  max-width: 1160px;
+  width: 100%;
 }
+
+header {
+  margin: 0 auto;
+  text-align: center;
+}
+

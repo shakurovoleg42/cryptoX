@@ -1,0 +1,6 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+.search-button  {
+    @include button-styles($primary-bg-color, $primary-color);
+}

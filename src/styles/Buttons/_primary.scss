@@ -1,6 +1,0 @@
-@use "../variables" as *;
-@use "../mixins" as *;
-
-.primary-button {
-  @include button-styles(primary-color);
-}

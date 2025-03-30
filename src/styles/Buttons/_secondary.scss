@@ -1,6 +1,0 @@
-@use "../variables" as *;
-@use "../mixins" as *;
-
-.button-secondary {
-  @include button-styles($secondary-color);
-}

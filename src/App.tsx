@@ -1,7 +1,14 @@
 import "./App.css";
+import Header from "./components/Header";
+import ListCoins from "./components/listCoins/ListCoins";
 
 function App() {
-  return <>123</>;
+  return (
+    <div className="App">
+      <Header />
+      <ListCoins />
+    </div>
+  );
 }
 
 export default App;
