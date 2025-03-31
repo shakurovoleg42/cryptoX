@@ -1,30 +1,56 @@
 import styles from "./ListCoins.module.scss";
 import type { Coin } from "../../types/listCoins.ts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const ListCoins = () => {
-  const [coins, setCoins] = useState<Coin[]>([
-    {
-      id: 1,
-      name: "Dogecoin",
-      symbol: "DOGE",
-      price: "$0.18",
-      refresh: () => {},
-      remove: () => {},
-    },
-  ]);
+interface ListCoinsProps {
+  searchQuery: string;
+}
 
-  setCoins([
-    ...coins,
-    {
-      id: 2,
-      name: "Litecoin",
-      symbol: "LTC",
-      price: "$100.00",
-      refresh: () => {},
-      remove: () => {},
-    },
-  ]);
+const ListCoins = ({ searchQuery }: ListCoinsProps) => {
+  const [coins, setCoins] = useState<Coin[]>([]);
+  console.log(searchQuery);
+
+  useEffect(() => {
+    if (searchQuery) {
+      // https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD
+      fetch(
+        `https://min-api.cryptocompare.com/data/price?fsym=${searchQuery}&tsyms=USD`
+      )
+        .then((response) => response.json())
+        .then((data) =>
+          setCoins((prevCoins) => [
+            ...prevCoins,
+            {
+              id: Date.now(),
+              name: searchQuery,
+              symbol: searchQuery,
+              price: `$${data.USD}`,
+              refresh: () => refreshCoin(searchQuery),
+              remove: () => removeCoin(searchQuery),
+            },
+          ])
+        );
+    }
+  }, [searchQuery]);
+
+  const refreshCoin = (symbol: string) => {
+    fetch(
+      `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setCoins((prevCoins) =>
+          prevCoins.map((coin) =>
+            coin.symbol === symbol ? { ...coin, price: `$${data.USD}` } : coin
+          )
+        );
+      });
+  };
+
+  const removeCoin = (symbol: string) => {
+    setCoins((prevCoins) => prevCoins.filter((coin) => coin.symbol !== symbol));
+  };
+  console.log(coins);
 
   return (
     <div className={styles.listCoins}>
