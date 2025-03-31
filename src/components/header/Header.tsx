@@ -12,8 +12,16 @@ const Header = () => {
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSearchQuery(searchTerm);
+    setSearchTerm("");
   };
 
+  // useEffect(() => {
+  //   if (searchQuery) {
+  //     console.log("Search query:", searchQuery);
+  //   }
+  // }, [searchQuery]); его будем юзать в ListCoins.tsx
+
+  console.log("Search query:", searchQuery);
   return (
     <div className={styles.header}>
       <form className={styles.searchForm} onSubmit={handleSearchSubmit}>
@@ -32,8 +40,6 @@ const Header = () => {
           </button>
         </div>
       </form>
-
-      {searchQuery && <p>Searching for: {searchQuery}</p>}
     </div>
   );
 };

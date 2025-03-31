@@ -1,7 +1,31 @@
-import React from "react";
 import styles from "./ListCoins.module.scss";
+import type { Coin } from "../../types/listCoins.ts";
+import { useState } from "react";
 
 const ListCoins = () => {
+  const [coins, setCoins] = useState<Coin[]>([
+    {
+      id: 1,
+      name: "Dogecoin",
+      symbol: "DOGE",
+      price: "$0.18",
+      refresh: () => {},
+      remove: () => {},
+    },
+  ]);
+
+  setCoins([
+    ...coins,
+    {
+      id: 2,
+      name: "Litecoin",
+      symbol: "LTC",
+      price: "$100.00",
+      refresh: () => {},
+      remove: () => {},
+    },
+  ]);
+
   return (
     <div className={styles.listCoins}>
       <h2>List of Coins</h2>
@@ -17,17 +41,19 @@ const ListCoins = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Dogecoin</td>
-            <td>DOGE</td>
-            <td>$0,18</td>
-            <td>
-              <button>Refresh</button>
-            </td>
-            <td>
-              <button>Remove</button>
-            </td>
-          </tr>
+          {coins.map((coin) => (
+            <tr key={coin.id}>
+              <td>{coin.name}</td>
+              <td>{coin.symbol}</td>
+              <td>{coin.price}</td>
+              <td>
+                <button onClick={coin.refresh}>Refresh</button>
+              </td>
+              <td>
+                <button onClick={coin.remove}>Remove</button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
