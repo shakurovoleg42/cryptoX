@@ -33,7 +33,6 @@ const Header = () => {
         </div>
       </form>
 
-      {/* Показываем запрос в консоли */}
       {searchQuery && <p>Searching for: {searchQuery}</p>}
     </div>
   );
