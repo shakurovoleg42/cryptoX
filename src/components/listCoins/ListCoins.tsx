@@ -1,6 +1,7 @@
 import styles from "./ListCoins.module.scss";
 import type { Coin } from "../../types/listCoins.ts";
 import { useEffect, useState } from "react";
+import { useCoinFunctions } from "../../utils/coinFuncs";
 
 interface ListCoinsProps {
   searchQuery: string;
@@ -8,48 +9,38 @@ interface ListCoinsProps {
 
 const ListCoins = ({ searchQuery }: ListCoinsProps) => {
   const [coins, setCoins] = useState<Coin[]>([]);
-  console.log(searchQuery);
+
+  const { refreshCoin, removeCoin } = useCoinFunctions();
 
   useEffect(() => {
-    if (searchQuery) {
-      // https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD
-      fetch(
-        `https://min-api.cryptocompare.com/data/price?fsym=${searchQuery}&tsyms=USD`
-      )
-        .then((response) => response.json())
-        .then((data) =>
+    if (!searchQuery) return;
+
+    if (coins.some((coin) => coin.symbol === searchQuery)) {
+      console.log("Coin already exists in the list");
+      return;
+    }
+
+    console.log(searchQuery);
+    fetch(
+      `https://min-api.cryptocompare.com/data/price?fsym=${searchQuery}&tsyms=USD`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.USD) {
           setCoins((prevCoins) => [
             ...prevCoins,
             {
               id: Date.now(),
-              name: searchQuery,
-              symbol: searchQuery,
+              symbol: searchQuery.toLocaleUpperCase(),
               price: `$${data.USD}`,
-              refresh: () => refreshCoin(searchQuery),
-              remove: () => removeCoin(searchQuery),
+              refresh: () => refreshCoin(searchQuery, setCoins),
+              remove: () => removeCoin(searchQuery, setCoins),
             },
-          ])
-        );
-    }
+          ]);
+        }
+      });
   }, [searchQuery]);
 
-  const refreshCoin = (symbol: string) => {
-    fetch(
-      `https://min-api.cryptocompare.com/data/price?fsym=${symbol}&tsyms=USD`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setCoins((prevCoins) =>
-          prevCoins.map((coin) =>
-            coin.symbol === symbol ? { ...coin, price: `$${data.USD}` } : coin
-          )
-        );
-      });
-  };
-
-  const removeCoin = (symbol: string) => {
-    setCoins((prevCoins) => prevCoins.filter((coin) => coin.symbol !== symbol));
-  };
   console.log(coins);
 
   return (
@@ -59,8 +50,7 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Symbol</th>
+            <th>Coin</th>
             <th>Price</th>
             <th>Refresh</th>
             <th>Remove</th>
@@ -68,15 +58,18 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
         </thead>
         <tbody>
           {coins.map((coin) => (
-            <tr key={coin.id}>
-              <td>{coin.name}</td>
+            <tr key={coin.id} className="table-row">
               <td>{coin.symbol}</td>
               <td>{coin.price}</td>
               <td>
-                <button onClick={coin.refresh}>Refresh</button>
+                <button onClick={() => refreshCoin(coin.symbol, setCoins)}>
+                  Refresh
+                </button>
               </td>
               <td>
-                <button onClick={coin.remove}>Remove</button>
+                <button onClick={() => removeCoin(coin.symbol, setCoins)}>
+                  Remove
+                </button>
               </td>
             </tr>
           ))}

@@ -20,6 +20,16 @@ table {
 
 tr th {
     border-right: 2px solid #ffffff;
+
+    &:last-child {
+        border-right: none;
+    }
+}
+
+tr td {
+    border-bottom: 1px solid #ffffff;
+    padding-top: 20px;
+    
 }
 
 tbody{

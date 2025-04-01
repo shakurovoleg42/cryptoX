@@ -13,10 +13,14 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+}
+html {
   background-image: url("/public/press-background.svg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  background-attachment: fixed;
 }
 
 body {
@@ -26,6 +30,7 @@ body {
   font-family: monospace;
   max-width: 1160px;
   width: 100%;
+  
 }
 
 header {
