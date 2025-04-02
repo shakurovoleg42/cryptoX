@@ -9,7 +9,7 @@ const Header = ({ onSearch }: HeaderProps) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+    setSearchTerm(event.target.value.toLocaleUpperCase());
   };
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {

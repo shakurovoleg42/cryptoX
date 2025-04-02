@@ -48,7 +48,7 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
             ...prevCoins,
             {
               id: Date.now(),
-              symbol: searchQuery.toLocaleUpperCase(),
+              symbol: searchQuery,
               price: data.USD,
               refresh: () => refreshCoin(searchQuery, setCoins),
               remove: () => removeCoin(searchQuery, setCoins),
