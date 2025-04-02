@@ -25,7 +25,6 @@ export const updateList = (
         notify("error", `It seems like the list is empty`);
       }
     })
-
     .catch((error) => {
       console.error("Error updating coin prices:", error);
     });

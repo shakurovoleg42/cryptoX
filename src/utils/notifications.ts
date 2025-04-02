@@ -1,10 +1,12 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export const notify = (type: string, message: string) => {
+  const toastId = message;
   switch (type) {
     case "success":
       toast.success(message, {
-        position: "top-right",
+        toastId,
+        position: "bottom-right",
         autoClose: 2500,
         hideProgressBar: false,
         closeOnClick: true,
@@ -14,7 +16,8 @@ export const notify = (type: string, message: string) => {
       break;
     case "error":
       toast.error(message, {
-        position: "top-right",
+        toastId,
+        position: "bottom-right",
         autoClose: 2500,
         hideProgressBar: false,
         closeOnClick: true,
@@ -24,7 +27,8 @@ export const notify = (type: string, message: string) => {
       break;
     default:
       toast.info(message, {
-        position: "top-right",
+        toastId,
+        position: "bottom-right",
         autoClose: 2500,
         hideProgressBar: false,
         closeOnClick: true,

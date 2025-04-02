@@ -14,6 +14,18 @@ interface ListCoinsProps {
 
 const ListCoins = ({ searchQuery }: ListCoinsProps) => {
   const [coins, setCoins] = useState<Coin[]>([]);
+
+  useEffect(() => {
+    localStorage.setItem("coins", JSON.stringify(coins));
+  }, [coins]);
+
+  useEffect(() => {
+    const storedCoins = localStorage.getItem("coins");
+    if (storedCoins) {
+      setCoins(JSON.parse(storedCoins));
+    }
+  }, []);
+
   const { refreshCoin, removeCoin } = useCoinFunctions();
   const allCoins = coins.map((coin) => coin.symbol).join(",");
 
