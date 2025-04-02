@@ -96,7 +96,7 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
         <tbody>
           {coins.map((coin) => (
             <tr key={coin.id} className="table-row">
-              <td>{coin.symbol}</td>
+              <td style={{ fontWeight: "900" }}>{coin.symbol}</td>
               <td>${coin.price}</td>
               <td>
                 <button onClick={() => refreshCoin(coin.symbol, setCoins)}>
