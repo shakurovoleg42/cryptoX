@@ -4,4 +4,5 @@ export type Coin = {
   price: string;
   refresh: () => void;
   remove: () => void;
+  status: string;
 };

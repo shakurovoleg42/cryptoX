@@ -9,6 +9,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
   font-weight: 900;
+  width: 100%;
 
   &:hover {
     background-color: color.mix(white, $bg-color, 10%);

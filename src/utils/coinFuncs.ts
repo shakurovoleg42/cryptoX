@@ -14,7 +14,7 @@ export const useCoinFunctions = () => {
         .then((data) => {
           setCoins((prevCoins) =>
             prevCoins.map((coin) =>
-              coin.symbol === symbol ? { ...coin, price: `$${data.USD}` } : coin
+              coin.symbol === symbol ? { ...coin, price: `${data.USD}` } : coin
             )
           );
         });
