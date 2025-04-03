@@ -12,12 +12,26 @@ export const updateList = (
     .then((data) => {
       if (data) {
         setCoins((prevCoins) =>
-          prevCoins.map((coin) => ({
-            ...coin,
-            price: data[coin.symbol]?.USD
-              ? `${data[coin.symbol].USD}`
-              : coin.price,
-          }))
+          prevCoins.map((coin) => {
+            const newPrice = data[coin.symbol]?.USD;
+            if (!newPrice) return coin;
+
+            let status = "neutral";
+
+            if (parseFloat(newPrice) > parseFloat(coin.price)) {
+              status = "positive";
+            } else if (parseFloat(newPrice) < parseFloat(coin.price)) {
+              status = "negative";
+            } else {
+              status = "neutral";
+            }
+
+            return {
+              ...coin,
+              price: `${newPrice}`,
+              status,
+            };
+          })
         );
         console.log("Updated coins:", data);
       }

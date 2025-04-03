@@ -52,7 +52,7 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
               price: data.USD,
               refresh: () => refreshCoin(searchQuery, setCoins),
               remove: () => removeCoin(searchQuery, setCoins),
-              status: "negative",
+              status: "neutral",
             },
           ]);
         }
@@ -97,7 +97,20 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
           {coins.map((coin) => (
             <tr key={coin.id} className="table-row">
               <td style={{ fontWeight: "900" }}>{coin.symbol}</td>
-              <td>${coin.price}</td>
+
+              <td
+                style={{
+                  color:
+                    coin.status === "positive"
+                      ? "green"
+                      : coin.status === "negative"
+                      ? "red"
+                      : "white",
+                  backgroundColor: "#242424",
+                }}
+              >
+                ${coin.price}
+              </td>
               <td>
                 <button onClick={() => refreshCoin(coin.symbol, setCoins)}>
                   Refresh
