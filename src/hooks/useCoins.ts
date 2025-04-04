@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Coin } from "../types/listCoins";
-import { updateList } from "../utils/updateList";
 
 const DEFAULT_COIN: Coin = {
   id: Date.now(),
