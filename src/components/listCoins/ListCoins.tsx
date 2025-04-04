@@ -21,6 +21,7 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
   const { coins, setCoins } = useCoins();
   const { refreshCoin, removeCoin } = useCoinFunctions();
   const allCoins = coins.map((coin) => coin.symbol).join(",");
+
   const apiKey = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {

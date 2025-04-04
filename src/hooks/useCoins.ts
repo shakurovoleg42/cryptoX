@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Coin } from "../types/listCoins";
+import { updateList } from "../utils/updateList";
 
 const DEFAULT_COIN: Coin = {
   id: Date.now(),
@@ -31,5 +32,8 @@ export const useCoins = () => {
     localStorage.setItem("coins", JSON.stringify(coins));
   }, [coins]);
 
+  const allCoins = coins.map((coin) => coin.symbol).join(",");
+
+  updateList(allCoins, setCoins);
   return { coins, setCoins };
 };
