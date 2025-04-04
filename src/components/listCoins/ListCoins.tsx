@@ -1,9 +1,9 @@
 import styles from "./ListCoins.module.scss";
-import type { Coin } from "../../types/listCoins.ts";
-import { useEffect, useState } from "react";
+// import type { Coin } from "../../types/listCoins.ts";
+import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useCoins } from "../../hooks/useHasCoins";
 import { useCoinFunctions } from "../../utils/coinFuncs";
 import { updateList } from "../../utils/updateList";
 import { notify } from "../../utils/notifications";
@@ -13,18 +13,7 @@ interface ListCoinsProps {
 }
 
 const ListCoins = ({ searchQuery }: ListCoinsProps) => {
-  const [coins, setCoins] = useState<Coin[]>([]);
-
-  useEffect(() => {
-    localStorage.setItem("coins", JSON.stringify(coins));
-  }, [coins]);
-
-  useEffect(() => {
-    const storedCoins = localStorage.getItem("coins");
-    if (storedCoins) {
-      setCoins(JSON.parse(storedCoins));
-    }
-  }, []);
+  const { coins, setCoins } = useCoins();
 
   const { refreshCoin, removeCoin } = useCoinFunctions();
   const allCoins = coins.map((coin) => coin.symbol).join(",");
