@@ -60,7 +60,7 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (coins.length === "") return;
+      if (coins.length === 0) return;
       updateList(allCoins, setCoins);
     }, 10000);
 
