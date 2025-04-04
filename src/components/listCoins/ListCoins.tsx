@@ -54,6 +54,7 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
         notify("error", `Coin ${searchQuery} not found`);
         console.error("Error fetching coin data:", error);
       });
+    updateList(allCoins, setCoins);
   }, [searchQuery]);
 
   useEffect(() => {
