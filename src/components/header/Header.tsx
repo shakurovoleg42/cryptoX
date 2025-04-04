@@ -24,7 +24,7 @@ const Header = ({ onSearch }: HeaderProps) => {
         <div>
           <input
             type="text"
-            placeholder="DOGE etc."
+            placeholder="Write a symbol only"
             value={searchTerm}
             onChange={handleSearchChange}
             className={styles.searchInput}

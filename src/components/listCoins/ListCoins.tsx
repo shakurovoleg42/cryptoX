@@ -1,14 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import styles from "./ListCoins.module.scss";
-// import type { Coin } from "../../types/listCoins.ts";
 import { useEffect } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useCoins } from "../../hooks/useHasCoins";
+
+import { useCoins } from "../../hooks/useCoins";
+
 import { useCoinFunctions } from "../../utils/coinFuncs";
 import { updateList } from "../../utils/updateList";
 import { notify } from "../../utils/notifications";
+
 import Coins from "./Coins";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import styles from "./ListCoins.module.scss";
 
 interface ListCoinsProps {
   searchQuery: string;
