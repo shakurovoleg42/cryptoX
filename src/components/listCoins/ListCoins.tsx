@@ -50,8 +50,8 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
               status: "neutral",
             },
           ]);
-        }
-        notify("error", `Coin ${searchQuery} not found`);
+        } else {notify("error", `Coin ${searchQuery} not found`);}
+        
       })
       .catch((error) => {
         console.log("Error fetching coin data:", error);
@@ -60,7 +60,7 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (coins.length === 0) return;
+      if (coins.length === "") return;
       updateList(allCoins, setCoins);
     }, 10000);
 
