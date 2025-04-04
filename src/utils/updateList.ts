@@ -18,9 +18,9 @@ export const updateList = (
 
             let status = "neutral";
 
-            if (parseFloat(newPrice) > parseFloat(coin.price)) {
+            if (newPrice > coin.price) {
               status = "positive";
-            } else if (parseFloat(newPrice) < parseFloat(coin.price)) {
+            } else if (newPrice < coin.price) {
               status = "negative";
             } else {
               status = "neutral";
@@ -28,7 +28,7 @@ export const updateList = (
 
             return {
               ...coin,
-              price: `${newPrice}`,
+              price: newPrice,
               status,
             };
           })
