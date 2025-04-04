@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./ListCoins.module.scss";
 // import type { Coin } from "../../types/listCoins.ts";
 import { useEffect } from "react";
@@ -7,6 +8,7 @@ import { useCoins } from "../../hooks/useHasCoins";
 import { useCoinFunctions } from "../../utils/coinFuncs";
 import { updateList } from "../../utils/updateList";
 import { notify } from "../../utils/notifications";
+import Coins from "./Coins";
 
 interface ListCoinsProps {
   searchQuery: string;
@@ -14,7 +16,6 @@ interface ListCoinsProps {
 
 const ListCoins = ({ searchQuery }: ListCoinsProps) => {
   const { coins, setCoins } = useCoins();
-
   const { refreshCoin, removeCoin } = useCoinFunctions();
   const allCoins = coins.map((coin) => coin.symbol).join(",");
 
@@ -50,7 +51,6 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
         notify("error", `Coin ${searchQuery} not found`);
         console.error("Error fetching coin data:", error);
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
     }, 10000);
 
     return () => clearInterval(interval);
-  }, [allCoins, coins]);
+  }, [allCoins]);
 
   return (
     <div className={styles.listCoins}>
@@ -83,34 +83,16 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
           </tr>
         </thead>
         <tbody>
-          {coins.map((coin) => (
-            <tr key={coin.id} className="table-row">
-              <td style={{ fontWeight: "900" }}>{coin.symbol}</td>
-
-              <td
-                style={{
-                  color:
-                    coin.status === "positive"
-                      ? "green"
-                      : coin.status === "negative"
-                      ? "red"
-                      : "white",
-                  backgroundColor: "#242424",
-                }}
-              >
-                ${coin.price}
-              </td>
-              <td>
-                <button onClick={() => refreshCoin(coin.symbol, setCoins)}>
-                  Refresh
-                </button>
-              </td>
-              <td>
-                <button onClick={() => removeCoin(coin.symbol, setCoins)}>
-                  Remove
-                </button>
-              </td>
-            </tr>
+          {coins.map(({ id, symbol, price, status }) => (
+            <Coins
+              key={id}
+              id={id}
+              symbol={symbol}
+              price={price}
+              status={status}
+              refresh={() => refreshCoin(symbol, setCoins)}
+              remove={() => removeCoin(symbol, setCoins)}
+            />
           ))}
         </tbody>
       </table>
