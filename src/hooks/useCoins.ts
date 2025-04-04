@@ -32,8 +32,5 @@ export const useCoins = () => {
     localStorage.setItem("coins", JSON.stringify(coins));
   }, [coins]);
 
-  const allCoins = coins.map((coin) => coin.symbol).join(",");
-
-  updateList(allCoins, setCoins);
-  return { coins, setCoins };
+   return { coins, setCoins };
 };
