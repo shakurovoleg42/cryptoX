@@ -21,6 +21,7 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
   const { coins, setCoins } = useCoins();
   const { refreshCoin, removeCoin } = useCoinFunctions();
   const allCoins = coins.map((coin) => coin.symbol).join(",");
+  const apiKey = import.meta.env.VITE_API_KEY;
 
   useEffect(() => {
     if (!searchQuery) return;
@@ -32,7 +33,7 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
 
     console.log(searchQuery);
     fetch(
-      `https://min-api.cryptocompare.com/data/price?fsym=${searchQuery}&tsyms=USD`
+      `https://min-api.cryptocompare.com/data/price?fsym=${searchQuery}&tsyms=USD&api_key=${apiKey}`
     )
       .then((response) => response.json())
       .then((data) => {
