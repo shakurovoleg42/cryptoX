@@ -21,7 +21,7 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
   const { coins, setCoins } = useCoins();
   const { refreshCoin, removeCoin } = useCoinFunctions();
   const allCoins = coins.map((coin) => coin.symbol).join(",");
-
+  updateList(allCoins, setCoins);
   useEffect(() => {
     if (!searchQuery) return;
 
@@ -54,7 +54,6 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
         notify("error", `Coin ${searchQuery} not found`);
         console.error("Error fetching coin data:", error);
       });
-    updateList(allCoins, setCoins);
   }, [searchQuery]);
 
   useEffect(() => {
