@@ -5,6 +5,10 @@ export const updateList = (
   allCoins: string,
   setCoins: React.Dispatch<React.SetStateAction<Coin[]>>
 ) => {
+  if (!allCoins) {
+    notify("info", "It seems like the list is empty");
+    return;
+  }
   fetch(
     `https://min-api.cryptocompare.com/data/pricemulti?fsyms=${allCoins}&tsyms=USD`
   )
@@ -33,10 +37,7 @@ export const updateList = (
             };
           })
         );
-        console.log("Updated coins:", data);
-      }
-      if (data.Type === 2) {
-        notify("error", `It seems like the list is empty`);
+        notify("info", "Coin prices updated");
       }
     })
     .catch((error) => {

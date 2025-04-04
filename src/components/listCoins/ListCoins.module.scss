@@ -64,17 +64,17 @@ tbody tr td {
     }
 
     tr td, tr th {
-        padding: 10px;
+        padding: 10px 0;
     }
 }
 
 @media (max-width: 480px) {
     table {
         font-size: 0.8rem;
-        padding: 5px;
+        padding: 5px 0;
     }
 
     tr td, tr th {
-        padding: 5px;
+        padding: 5px 0;
     }
 }

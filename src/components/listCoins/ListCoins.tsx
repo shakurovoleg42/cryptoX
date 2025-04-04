@@ -21,7 +21,7 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
   const { coins, setCoins } = useCoins();
   const { refreshCoin, removeCoin } = useCoinFunctions();
   const allCoins = coins.map((coin) => coin.symbol).join(",");
-  updateList(allCoins, setCoins);
+
   useEffect(() => {
     if (!searchQuery) return;
 
@@ -49,10 +49,10 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
             },
           ]);
         }
+        notify("error", `Coin ${searchQuery} not found`);
       })
       .catch((error) => {
-        notify("error", `Coin ${searchQuery} not found`);
-        console.error("Error fetching coin data:", error);
+        console.log("Error fetching coin data:", error);
       });
   }, [searchQuery]);
 
@@ -60,7 +60,6 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
     const interval = setInterval(() => {
       if (coins.length === 0) return;
       updateList(allCoins, setCoins);
-      notify("info", "Coin prices updated");
     }, 10000);
 
     return () => clearInterval(interval);
