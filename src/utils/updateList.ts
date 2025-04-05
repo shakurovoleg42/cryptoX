@@ -6,6 +6,7 @@ export const updateList = (
   setCoins: React.Dispatch<React.SetStateAction<Coin[]>>
 ) => {
   const apiKey = import.meta.env.VITE_API_KEY;
+
   if (!allCoins) {
     notify("info", "It seems like the list is empty");
     return;
