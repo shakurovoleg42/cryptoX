@@ -39,7 +39,8 @@ export const useCoins = () => {
     if (allCoins) {
       updateList(allCoins, setCoins);
     }
-  }, [coins]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return { coins, setCoins };
 };
