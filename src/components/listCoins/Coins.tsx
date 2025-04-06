@@ -16,6 +16,17 @@ const Coins = memo(({ id, symbol, price, status, refresh, remove }: Coin) => {
           backgroundColor: "#242424",
         }}
       >
+        {status === "positive" ? (
+          <span style={{ color: "green", fontWeight: "900", fontSize: "32px" }}>
+            ↑{" "}
+          </span>
+        ) : status === "negative" ? (
+          <span style={{ color: "red", fontWeight: "900", fontSize: "32px" }}>
+            ↓{" "}
+          </span>
+        ) : (
+          <span></span>
+        )}
         ${price}
       </td>
       <td>

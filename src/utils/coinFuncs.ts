@@ -20,7 +20,7 @@ export const useCoinFunctions = () => {
           );
         });
     },
-    []
+    [apiKey]
   );
 
   const removeCoin = useCallback(

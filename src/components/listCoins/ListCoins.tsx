@@ -50,13 +50,14 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
               status: "neutral",
             },
           ]);
-        } else {notify("error", `Coin ${searchQuery} not found`);}
-        
+        } else {
+          notify("error", `Coin ${searchQuery} not found`);
+        }
       })
       .catch((error) => {
         console.log("Error fetching coin data:", error);
       });
-  }, [searchQuery]);
+  }, [apiKey, searchQuery]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -65,7 +66,7 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
     }, 10000);
 
     return () => clearInterval(interval);
-  }, [allCoins]);
+  }, [allCoins, coins, setCoins]);
 
   return (
     <div className={styles.listCoins}>
