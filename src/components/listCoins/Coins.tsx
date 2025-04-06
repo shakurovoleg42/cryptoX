@@ -1,9 +1,9 @@
 import { memo } from "react";
 import { Coin } from "../../types/listCoins";
 
-const Coins = memo(({ id, symbol, price, status, refresh, remove }: Coin) => {
+const Coins = memo(({ symbol, price, status, refresh, remove }: Coin) => {
   return (
-    <tr key={id} className="table-row">
+    <tr className="table-row">
       <td style={{ fontWeight: "900" }}>{symbol}</td>
       <td
         style={{
@@ -18,11 +18,11 @@ const Coins = memo(({ id, symbol, price, status, refresh, remove }: Coin) => {
       >
         {status === "positive" ? (
           <span style={{ color: "green", fontWeight: "900", fontSize: "32px" }}>
-            ↑{" "}
+            ↑
           </span>
         ) : status === "negative" ? (
           <span style={{ color: "red", fontWeight: "900", fontSize: "32px" }}>
-            ↓{" "}
+            ↓
           </span>
         ) : (
           <span></span>

@@ -13,10 +13,26 @@ export const useCoinFunctions = () => {
       )
         .then((response) => response.json())
         .then((data) => {
+          const newPrice = data.USD;
           setCoins((prevCoins) =>
-            prevCoins.map((coin) =>
-              coin.symbol === symbol ? { ...coin, price: data.USD } : coin
-            )
+            prevCoins.map((coin) => {
+              if (coin.symbol !== symbol) return coin;
+
+              if (coin.price === newPrice) return coin;
+
+              const newStatus: Coin["status"] =
+                newPrice > coin.price
+                  ? "positive"
+                  : newPrice < coin.price
+                  ? "negative"
+                  : "neutral";
+
+              return {
+                ...coin,
+                price: newPrice,
+                status: newStatus,
+              };
+            })
           );
         });
     },
