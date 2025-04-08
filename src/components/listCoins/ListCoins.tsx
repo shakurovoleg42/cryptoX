@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 import { useCoins } from "../../hooks/useCoins";
 
@@ -25,6 +25,16 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
 
   const apiKey = import.meta.env.VITE_API_KEY;
 
+  const getRefreshHandler = useCallback(
+    (symbol: string) => () => refreshCoin(symbol, setCoins),
+    [refreshCoin]
+  );
+
+  const getRemoveHandler = useCallback(
+    (symbol: string) => () => removeCoin(symbol, setCoins),
+    [removeCoin]
+  );
+
   useEffect(() => {
     if (!searchQuery) return;
 
@@ -43,11 +53,11 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
           setCoins((prevCoins) => [
             ...prevCoins,
             {
-              id: Date.now(),
+              id: searchQuery,
               symbol: searchQuery,
               price: data.USD,
-              refresh: () => refreshCoin(searchQuery, setCoins),
-              remove: () => removeCoin(searchQuery, setCoins),
+              refresh: getRefreshHandler(searchQuery),
+              remove: getRemoveHandler(searchQuery),
               status: "neutral",
             },
           ]);
@@ -96,8 +106,8 @@ const ListCoins = ({ searchQuery }: ListCoinsProps) => {
               symbol={symbol}
               price={price}
               status={status}
-              refresh={() => refreshCoin(symbol, setCoins)}
-              remove={() => removeCoin(symbol, setCoins)}
+              refresh={getRefreshHandler(symbol)}
+              remove={getRemoveHandler(symbol)}
             />
           ))}
         </tbody>

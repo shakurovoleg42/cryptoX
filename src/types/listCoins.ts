@@ -1,5 +1,5 @@
 export type Coin = {
-  id: number;
+  id: string;
   symbol: string;
   price: number;
   status: string;

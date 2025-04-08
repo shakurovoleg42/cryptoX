@@ -3,7 +3,7 @@ import { Coin } from "../types/listCoins";
 import { updateList } from "../utils/updateList";
 
 const DEFAULT_COIN: Coin = {
-  id: Date.now(),
+  id: "DOGE",
   symbol: "DOGE",
   price: 0,
   refresh: () => {},
